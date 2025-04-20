@@ -13,13 +13,13 @@ enum Continent {
 }
 
 final Map<Continent, String> continentUrl = {
-  Continent.africa: "asset/images/afr.jpg",
-  Continent.asia: "asset/images/asia.jpg",
-  Continent.antarctica: "asset/images/ant.jpg",
-  Continent.australia: "asset/images/aus.jpg",
-  Continent.europe: "asset/images/eur.jpg",
-  Continent.northAmerica: "asset/images/namr.jpg",
-  Continent.southAmerica: "asset/images/samr.jpg",
+  Continent.africa: "assets/images/afr.jpg",
+  Continent.asia: "assets/images/asia.jpg",
+  Continent.antarctica: "assets/images/ant.jpg",
+  Continent.australia: "assets/images/aus.jpg",
+  Continent.europe: "assets/images/eur.jpg",
+  Continent.northAmerica: "assets/images/namr.jpg",
+  Continent.southAmerica: "assets/images/samr.jpg",
 };
 
 class Location {

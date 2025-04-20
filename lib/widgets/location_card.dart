@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:vzit_app/models/location.dart';
 
 final DateFormat formatter = DateFormat.yMd();
 
 class LocationCard extends StatelessWidget {
-  const LocationCard({super.key});
+  const LocationCard({super.key, required this.location});
+
+  final Location location;
   @override
   Widget build(context) {
     return Card(
@@ -16,19 +19,20 @@ class LocationCard extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
         child: Row(
           children: [
-            Image.asset("assets/images/afr.jpg", width: 80, height: 75),
+            Image.asset(location.continentImageUrl, width: 80, height: 75),
             const Spacer(),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Place",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  location.name,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
                 Text(
-                  formatter.format(DateTime.now()),
+                  formatter.format(location.dateToVisit),
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
+                    fontSize: 12,
                     color: Color.fromRGBO(148, 151, 152, 1),
                   ),
                 ),
