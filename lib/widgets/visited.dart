@@ -3,7 +3,15 @@ import 'package:vzit_app/models/location.dart';
 import 'package:vzit_app/widgets/location_card.dart';
 
 class Visited extends StatelessWidget {
-  const Visited({super.key, required this.locations});
+  const Visited({
+    super.key,
+    required this.locations,
+    required this.onNotVisited,
+    required this.onDeleteLocation,
+  });
+
+  final void Function(Location location) onNotVisited;
+  final void Function(Location location) onDeleteLocation;
 
   final List<Location> locations;
   @override
@@ -24,7 +32,11 @@ class Visited extends StatelessWidget {
               itemCount: locations.length,
               itemBuilder: (ctx, index) {
                 final currentLocation = locations[index];
-                return LocationCard(location: currentLocation);
+                return LocationCard(
+                  onDelete: onDeleteLocation,
+                  location: currentLocation,
+                  onToggleVisited: onNotVisited,
+                );
               },
             ),
           ),

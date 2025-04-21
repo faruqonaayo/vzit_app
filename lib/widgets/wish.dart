@@ -3,7 +3,15 @@ import 'package:vzit_app/models/location.dart';
 import 'package:vzit_app/widgets/location_card.dart';
 
 class Wish extends StatelessWidget {
-  const Wish({super.key, required this.locations});
+  const Wish({
+    super.key,
+    required this.locations,
+    required this.onVisited,
+    required this.onDeleteLocation,
+  });
+
+  final void Function(Location location) onVisited;
+  final void Function(Location location) onDeleteLocation;
 
   final List<Location> locations;
   @override
@@ -25,7 +33,11 @@ class Wish extends StatelessWidget {
               itemCount: locations.length,
               itemBuilder: (ctx, index) {
                 final currentLocation = locations[index];
-                return LocationCard(location: currentLocation);
+                return LocationCard(
+                  onDelete: onDeleteLocation,
+                  location: currentLocation,
+                  onToggleVisited: onVisited,
+                );
               },
             ),
           ),

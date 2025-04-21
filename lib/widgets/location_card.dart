@@ -5,9 +5,18 @@ import 'package:vzit_app/models/location.dart';
 final DateFormat formatter = DateFormat.yMd();
 
 class LocationCard extends StatelessWidget {
-  const LocationCard({super.key, required this.location});
+  const LocationCard({
+    super.key,
+    required this.location,
+    required this.onToggleVisited,
+    required this.onDelete,
+  });
 
   final Location location;
+
+  final void Function(Location location) onToggleVisited;
+  final void Function(Location location) onDelete;
+
   @override
   Widget build(context) {
     return Card(
@@ -41,16 +50,31 @@ class LocationCard extends StatelessWidget {
             const Spacer(),
             Row(
               children: [
-                IconButton(
-                  color: Color.fromRGBO(13, 83, 99, 1),
-                  style: IconButton.styleFrom(
-                    backgroundColor: Color.fromRGBO(157, 237, 255, 1),
-                  ),
-                  constraints: BoxConstraints(maxWidth: 40, maxHeight: 40),
-                  iconSize: 20,
-                  onPressed: () {},
-                  icon: Icon(Icons.check),
-                ),
+                location.visited == false
+                    ? IconButton(
+                      color: Color.fromRGBO(13, 83, 99, 1),
+                      style: IconButton.styleFrom(
+                        backgroundColor: Color.fromRGBO(157, 237, 255, 1),
+                      ),
+                      constraints: BoxConstraints(maxWidth: 40, maxHeight: 40),
+                      iconSize: 20,
+                      onPressed: () {
+                        onToggleVisited(location);
+                      },
+                      icon: Icon(Icons.check),
+                    )
+                    : IconButton(
+                      color: Color.fromRGBO(99, 53, 13, 1),
+                      style: IconButton.styleFrom(
+                        backgroundColor: Color.fromRGBO(255, 224, 157, 1),
+                      ),
+                      constraints: BoxConstraints(maxWidth: 40, maxHeight: 40),
+                      iconSize: 20,
+                      onPressed: () {
+                        onToggleVisited(location);
+                      },
+                      icon: Icon(Icons.cancel),
+                    ),
                 IconButton(
                   color: Color.fromRGBO(241, 46, 46, 1),
                   style: IconButton.styleFrom(
@@ -58,7 +82,9 @@ class LocationCard extends StatelessWidget {
                   ),
                   constraints: BoxConstraints(maxWidth: 40, maxHeight: 40),
                   iconSize: 20,
-                  onPressed: () {},
+                  onPressed: () {
+                    onDelete(location);
+                  },
                   icon: Icon(Icons.delete),
                 ),
               ],

@@ -50,6 +50,42 @@ class _VzitAppState extends State<VzitApp> {
     ),
   ];
 
+  void handleVisited(Location location) {
+    setState(() {
+      final locationIndex = sampleLocations.indexOf(location);
+      sampleLocations[locationIndex].visited = true;
+    });
+  }
+
+  void handleNotVisited(Location location) {
+    setState(() {
+      final locationIndex = sampleLocations.indexOf(location);
+      sampleLocations[locationIndex].visited = false;
+    });
+  }
+
+  void handleDeleteLocation(Location location) {
+    final locationIndex = sampleLocations.indexOf(location);
+    setState(() {
+      sampleLocations.remove(location);
+    });
+
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("Deleted ${location.name}"),
+        action: SnackBarAction(
+          label: "Undo",
+          onPressed: () {
+            setState(() {
+              sampleLocations.insert(locationIndex, location);
+            });
+          },
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(context) {
     return Scaffold(
@@ -59,9 +95,23 @@ class _VzitAppState extends State<VzitApp> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Wish(locations: sampleLocations),
+              Wish(
+                onVisited: handleVisited,
+                onDeleteLocation: handleDeleteLocation,
+                locations:
+                    sampleLocations
+                        .where((Location location) => location.visited == false)
+                        .toList(),
+              ),
               const SizedBox(height: 40),
-              Visited(locations: sampleLocations),
+              Visited(
+                onNotVisited: handleNotVisited,
+                onDeleteLocation: handleDeleteLocation,
+                locations:
+                    sampleLocations
+                        .where((Location location) => location.visited == true)
+                        .toList(),
+              ),
             ],
           ),
         ),
