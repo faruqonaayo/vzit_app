@@ -16,33 +16,28 @@ class Wish extends StatelessWidget {
   final List<Location> locations;
   @override
   Widget build(context) {
-    final height = MediaQuery.of(context).size.height;
-    return SizedBox(
-      width: double.infinity,
-      height: height / 2,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Wish Locations",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-          ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Wish",
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+        ),
 
-          Expanded(
-            child: ListView.builder(
-              itemCount: locations.length,
-              itemBuilder: (ctx, index) {
-                final currentLocation = locations[index];
-                return LocationCard(
-                  onDelete: onDeleteLocation,
-                  location: currentLocation,
-                  onToggleVisited: onVisited,
-                );
-              },
-            ),
+        Expanded(
+          child: ListView.builder(
+            itemCount: locations.length,
+            itemBuilder: (ctx, index) {
+              final currentLocation = locations[index];
+              return LocationCard(
+                onDelete: onDeleteLocation,
+                location: currentLocation,
+                onToggleVisited: onVisited,
+              );
+            },
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

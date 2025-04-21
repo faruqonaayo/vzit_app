@@ -86,35 +86,106 @@ class _VzitAppState extends State<VzitApp> {
     );
   }
 
+  void _handleShowModalBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      builder: (ctx) {
+        return Text("Hello");
+      },
+    );
+  }
+
   @override
   Widget build(context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isLargeScreen = screenWidth > 600;
+
     return Scaffold(
       appBar: AppBar(title: Text("Vzit App")),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Wish(
-                onVisited: handleVisited,
-                onDeleteLocation: handleDeleteLocation,
-                locations:
-                    sampleLocations
-                        .where((Location location) => location.visited == false)
-                        .toList(),
-              ),
-              const SizedBox(height: 40),
-              Visited(
-                onNotVisited: handleNotVisited,
-                onDeleteLocation: handleDeleteLocation,
-                locations:
-                    sampleLocations
-                        .where((Location location) => location.visited == true)
-                        .toList(),
-              ),
-            ],
-          ),
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+        child:
+            isLargeScreen
+                ? Column(
+                  children: [
+                    Expanded(
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Wish(
+                              onVisited: handleVisited,
+                              onDeleteLocation: handleDeleteLocation,
+                              locations:
+                                  sampleLocations
+                                      .where(
+                                        (Location location) =>
+                                            location.visited == false,
+                                      )
+                                      .toList(),
+                            ),
+                          ),
+                          const SizedBox(height: 32),
+                          Expanded(
+                            child: Visited(
+                              onNotVisited: handleNotVisited,
+                              onDeleteLocation: handleDeleteLocation,
+                              locations:
+                                  sampleLocations
+                                      .where(
+                                        (Location location) =>
+                                            location.visited == true,
+                                      )
+                                      .toList(),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    ElevatedButton.icon(
+                      onPressed: _handleShowModalBottomSheet,
+                      icon: Icon(Icons.add),
+                      label: Text("Add Location"),
+                    ),
+                  ],
+                )
+                : Column(
+                  children: [
+                    Expanded(
+                      child: Wish(
+                        onVisited: handleVisited,
+                        onDeleteLocation: handleDeleteLocation,
+                        locations:
+                            sampleLocations
+                                .where(
+                                  (Location location) =>
+                                      location.visited == false,
+                                )
+                                .toList(),
+                      ),
+                    ),
+                    const SizedBox(height: 32),
+                    Expanded(
+                      child: Visited(
+                        onNotVisited: handleNotVisited,
+                        onDeleteLocation: handleDeleteLocation,
+                        locations:
+                            sampleLocations
+                                .where(
+                                  (Location location) =>
+                                      location.visited == true,
+                                )
+                                .toList(),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    ElevatedButton.icon(
+                      onPressed: _handleShowModalBottomSheet,
+                      icon: Icon(Icons.add),
+                      label: Text("Add Location"),
+                    ),
+                  ],
+                ),
       ),
     );
   }

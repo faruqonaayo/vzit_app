@@ -20,10 +20,6 @@ class LocationCard extends StatelessWidget {
   @override
   Widget build(context) {
     return Card(
-      color: Color.fromRGBO(235, 244, 246, 100),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(4)),
-      ),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
         child: Row(
