@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vzit_app/models/location.dart';
+import 'package:vzit_app/widgets/new_location.dart';
 import 'package:vzit_app/widgets/visited.dart';
 import 'package:vzit_app/widgets/wish.dart';
 
@@ -12,43 +13,7 @@ class VzitApp extends StatefulWidget {
 }
 
 class _VzitAppState extends State<VzitApp> {
-  final List<Location> sampleLocations = [
-    Location(
-      name: "Cape Town",
-      dateToVisit: DateTime(2025, 6, 15),
-      continent: Continent.africa,
-    ),
-    Location(
-      name: "Tokyo",
-      dateToVisit: DateTime(2025, 9, 10),
-      continent: Continent.asia,
-    ),
-    Location(
-      name: "Antarctic Peninsula",
-      dateToVisit: DateTime(2026, 1, 20),
-      continent: Continent.antarctica,
-    ),
-    Location(
-      name: "Sydney",
-      dateToVisit: DateTime(2025, 12, 5),
-      continent: Continent.australia,
-    ),
-    Location(
-      name: "Paris",
-      dateToVisit: DateTime(2025, 7, 22),
-      continent: Continent.europe,
-    ),
-    Location(
-      name: "Vancouver",
-      dateToVisit: DateTime(2025, 8, 14),
-      continent: Continent.northAmerica,
-    ),
-    Location(
-      name: "Rio de Janeiro",
-      dateToVisit: DateTime(2025, 11, 3),
-      continent: Continent.southAmerica,
-    ),
-  ];
+  final List<Location> sampleLocations = [];
 
   void handleVisited(Location location) {
     setState(() {
@@ -69,7 +34,6 @@ class _VzitAppState extends State<VzitApp> {
     setState(() {
       sampleLocations.remove(location);
     });
-
     ScaffoldMessenger.of(context).clearSnackBars();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -86,11 +50,19 @@ class _VzitAppState extends State<VzitApp> {
     );
   }
 
+  void addNewLocation(Location location) {
+    setState(() {
+      sampleLocations.add(location);
+    });
+  }
+
   void _handleShowModalBottomSheet() {
     showModalBottomSheet(
+      useSafeArea: true,
+      isScrollControlled: true,
       context: context,
       builder: (ctx) {
-        return Text("Hello");
+        return NewLocation(onAddNewLocation: addNewLocation);
       },
     );
   }
