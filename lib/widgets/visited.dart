@@ -28,10 +28,32 @@ class Visited extends StatelessWidget {
             itemCount: locations.length,
             itemBuilder: (ctx, index) {
               final currentLocation = locations[index];
-              return LocationCard(
-                onDelete: onDeleteLocation,
-                location: currentLocation,
-                onToggleVisited: onNotVisited,
+              return Dismissible(
+                key: ValueKey(currentLocation),
+                onDismissed: (direction) {
+                  onNotVisited(currentLocation);
+                },
+                direction: DismissDirection.startToEnd,
+                background: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: const Color.fromARGB(255, 247, 218, 165),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.close,
+                        color: Color.fromARGB(255, 237, 141, 24),
+                      ),
+                      const Spacer(),
+                    ],
+                  ),
+                ),
+                child: LocationCard(
+                  onDelete: onDeleteLocation,
+                  location: currentLocation,
+                  onToggleVisited: onNotVisited,
+                ),
               );
             },
           ),

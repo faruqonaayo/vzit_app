@@ -69,7 +69,7 @@ class LocationCard extends StatelessWidget {
                       onPressed: () {
                         onToggleVisited(location);
                       },
-                      icon: Icon(Icons.cancel),
+                      icon: Icon(Icons.close),
                     ),
                 IconButton(
                   color: Color.fromRGBO(241, 46, 46, 1),
