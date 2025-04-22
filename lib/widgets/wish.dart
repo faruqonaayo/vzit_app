@@ -29,10 +29,32 @@ class Wish extends StatelessWidget {
             itemCount: locations.length,
             itemBuilder: (ctx, index) {
               final currentLocation = locations[index];
-              return LocationCard(
-                onDelete: onDeleteLocation,
-                location: currentLocation,
-                onToggleVisited: onVisited,
+              return Dismissible(
+                key: ValueKey(currentLocation),
+                onDismissed: (direction) {
+                  onDeleteLocation(currentLocation);
+                },
+                direction: DismissDirection.endToStart,
+                background: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: const Color.fromARGB(255, 247, 170, 165),
+                  ),
+                  child: Row(
+                    children: [
+                      const Spacer(),
+                      Icon(
+                        Icons.delete,
+                        color: Color.fromARGB(255, 237, 39, 24),
+                      ),
+                    ],
+                  ),
+                ),
+                child: LocationCard(
+                  onDelete: onDeleteLocation,
+                  location: currentLocation,
+                  onToggleVisited: onVisited,
+                ),
               );
             },
           ),
